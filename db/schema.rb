@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_04_07_103103) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "unblocked_at"
-    t.virtual "blocked", type: :boolean, as: "case when unblocked_at is null then '1' else null end", stored: false
+    t.boolean "blocked"
     t.index ["person_id", "blocked"], name: "index_syncs_on_person_id_and_blocked", unique: true
   end
 
