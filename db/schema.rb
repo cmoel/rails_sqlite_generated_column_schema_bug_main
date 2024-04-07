@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_04_07_102952) do
+ActiveRecord::Schema[7.2].define(version: 2024_04_07_103103) do
   create_table "people", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -20,6 +20,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_04_07_102952) do
     t.integer "person_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "unblocked_at"
+    t.virtual "blocked", type: :boolean, as: "case when unblocked_at is null then '1' else null end", stored: false
+    t.index ["person_id", "blocked"], name: "index_syncs_on_person_id_and_blocked", unique: true
   end
 
   add_foreign_key "syncs", "people"
